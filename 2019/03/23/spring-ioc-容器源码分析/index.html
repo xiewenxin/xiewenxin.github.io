@@ -8,20 +8,20 @@
   <link rel="dns-prefetch" href="http://yoursite.com">
   <title>spring ioc 容器源码分析 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="name: spring-ioctitle: Spring IOC 容器源码分析date: 2019-03-23 10:39:52tags:  categories: open-source[TOC] Spring 最重要的概念是 IOC 和 AOP，本篇文章其实就是要带领大家来分析下 Spring 的 IOC 容器。既然大家平时都要用到 Spring，怎么可以不好好了解 Spring 呢？阅读">
+  <meta name="description" content="name: spring-ioctitle: Spring IOC 容器源码分析date: 2019-03-23 10:39:52tags:  categories: open-sourceSpring 最重要的概念是 IOC 和 AOP，本篇文章其实就是要带领大家来分析下 Spring 的 IOC 容器。既然大家平时都要用到 Spring，怎么可以不好好了解 Spring 呢？阅读本文并不能让">
 <meta property="og:type" content="article">
 <meta property="og:title" content="spring ioc 容器源码分析">
 <meta property="og:url" content="http://yoursite.com/2019/03/23/spring-ioc-容器源码分析/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="name: spring-ioctitle: Spring IOC 容器源码分析date: 2019-03-23 10:39:52tags:  categories: open-source[TOC] Spring 最重要的概念是 IOC 和 AOP，本篇文章其实就是要带领大家来分析下 Spring 的 IOC 容器。既然大家平时都要用到 Spring，怎么可以不好好了解 Spring 呢？阅读">
+<meta property="og:description" content="name: spring-ioctitle: Spring IOC 容器源码分析date: 2019-03-23 10:39:52tags:  categories: open-sourceSpring 最重要的概念是 IOC 和 AOP，本篇文章其实就是要带领大家来分析下 Spring 的 IOC 容器。既然大家平时都要用到 Spring，怎么可以不好好了解 Spring 呢？阅读本文并不能让">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="https://www.javadoop.com/blogimages/spring-context/1.png">
 <meta property="og:image" content="https://www.javadoop.com/blogimages/spring-context/2.png">
 <meta property="og:image" content="https://www.javadoop.com/blogimages/spring-context/3.png">
-<meta property="og:updated_time" content="2019-03-23T02:42:39.819Z">
+<meta property="og:updated_time" content="2019-03-28T11:39:22.218Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="spring ioc 容器源码分析">
-<meta name="twitter:description" content="name: spring-ioctitle: Spring IOC 容器源码分析date: 2019-03-23 10:39:52tags:  categories: open-source[TOC] Spring 最重要的概念是 IOC 和 AOP，本篇文章其实就是要带领大家来分析下 Spring 的 IOC 容器。既然大家平时都要用到 Spring，怎么可以不好好了解 Spring 呢？阅读">
+<meta name="twitter:description" content="name: spring-ioctitle: Spring IOC 容器源码分析date: 2019-03-23 10:39:52tags:  categories: open-sourceSpring 最重要的概念是 IOC 和 AOP，本篇文章其实就是要带领大家来分析下 Spring 的 IOC 容器。既然大家平时都要用到 Spring，怎么可以不好好了解 Spring 呢？阅读本文并不能让">
 <meta name="twitter:image" content="https://www.javadoop.com/blogimages/spring-context/1.png">
   
     <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
@@ -180,13 +180,13 @@
       
         <hr>
 <p>name: spring-ioc<br>title: Spring IOC 容器源码分析<br>date: 2019-03-23 10:39:52<br>tags: </p>
-<h2 id="categories-open-source"><a href="#categories-open-source" class="headerlink" title="categories: open-source"></a>categories: open-source</h2><p>[TOC]</p>
-<p>Spring 最重要的概念是 IOC 和 AOP，本篇文章其实就是要带领大家来分析下 Spring 的 IOC 容器。既然大家平时都要用到 Spring，怎么可以不好好了解 Spring 呢？阅读本文并不能让你成为 Spring 专家，不过一定有助于大家理解 Spring 的很多概念，帮助大家排查应用中和 Spring 相关的一些问题。</p>
+<h2 id="categories-open-source"><a href="#categories-open-source" class="headerlink" title="categories: open-source"></a>categories: open-source</h2><p>Spring 最重要的概念是 IOC 和 AOP，本篇文章其实就是要带领大家来分析下 Spring 的 IOC 容器。既然大家平时都要用到 Spring，怎么可以不好好了解 Spring 呢？阅读本文并不能让你成为 Spring 专家，不过一定有助于大家理解 Spring 的很多概念，帮助大家排查应用中和 Spring 相关的一些问题。</p>
 <p>本文采用的源码版本是 4.3.11.RELEASE，算是 5.0.x 前比较新的版本了。为了降低难度，本文所说的所有的内容都是基于 xml 的配置的方式，实际使用已经很少人这么做了，至少不是纯 xml 配置，不过从理解源码的角度来看用这种方式来说无疑是最合适的。</p>
 <p>阅读建议：读者至少需要知道怎么配置 Spring，了解 Spring 中的各种概念，少部分内容我还假设读者使用过 SpringMVC。本文要说的 IOC 总体来说有两处地方最重要，一个是创建 Bean 容器，一个是初始化 Bean，如果读者觉得一次性看完本文压力有点大，那么可以按这个思路分两次消化。读者不一定对 Spring 容器的源码感兴趣，也许附录部分介绍的知识对读者有些许作用。</p>
 <p>希望通过本文可以让读者不惧怕阅读 Spring 源码，也希望大家能反馈表述错误或不合理的地方。</p>
 <p><strong>目录</strong></p>
 <!-- toc -->
+<a id="more"></a>
 <h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>先看下最基本的启动 Spring 容器的例子：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">    ApplicationContext context = <span class="keyword">new</span> ClassPathXmlApplicationContext(<span class="string">"classpath:applicationfile.xml"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>以上代码就可以利用配置文件来启动一个 Spring 容器了，请使用 maven 的小伙伴直接在 dependencies 中加上以下依赖即可，个人比较反对那些不知道要添加什么依赖，然后把 Spring 的所有相关的东西都加进来的方式。</p>
@@ -658,6 +658,15 @@
   
 <nav id="article-nav">
   
+    <a href="/2019/03/28/排序算法集合/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          排序算法集合
+        
+      </div>
+    </a>
+  
   
     <a href="/2019/03/22/hexo-命令集/" id="article-nav-older" class="article-nav-link-wrap">
       <div class="article-nav-title">hexo 命令集</div>
@@ -714,13 +723,13 @@
     </div>
     <script>
 	var yiliaConfig = {
-		mathjax: false,
+		mathjax: ,
 		isHome: false,
 		isPost: true,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,
-		open_in_new: false,
+		open_in_new: true,
 		toc_hide_index: true,
 		root: "/",
 		innerArchive: true,
