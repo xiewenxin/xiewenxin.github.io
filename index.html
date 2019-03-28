@@ -172,21 +172,87 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="八大排序算法"><a href="#八大排序算法" class="headerlink" title="八大排序算法"></a>八大排序算法</h1><p> <strong>冒泡排序</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">public  static void bubbleSort( int array[]) &#123;</span><br><span class="line">	//</span><br><span class="line">	if(array==null||array.length&lt;2) &#123;</span><br><span class="line">		return;</span><br><span class="line">	&#125;</span><br><span class="line">	int size = array.length;</span><br><span class="line">	for(int i=size-1;i&gt;0;i--) &#123;</span><br><span class="line">		for(int j=0;j&lt;i;j++) &#123;</span><br><span class="line">			if(array[j]&gt;array[j+1]) &#123;</span><br><span class="line">				swap(array,j+1,j);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">&lt;!-- more --&gt;</span><br></pre></td></tr></table></figure>
-<p> <strong>选择排序</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">public static void selectionSort(int array[]) &#123;</span><br><span class="line">	/**</span><br><span class="line">	 * 选择排序</span><br><span class="line">	 */</span><br><span class="line">	if(array==null||array.length&lt;2) &#123;</span><br><span class="line">		return;</span><br><span class="line">	&#125;</span><br><span class="line">	int size=array.length;</span><br><span class="line">	for(int i=0;i&lt;size-1;i++) &#123;</span><br><span class="line">		int minindex=i;//</span><br><span class="line">		for(int j=i+1;j&lt;size;j++) &#123;</span><br><span class="line">			minindex=array[j]&lt;array[minindex]?j:minindex;</span><br><span class="line">		&#125;</span><br><span class="line">		swap(array,minindex,i);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><strong>插入排序</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">public static void insertSort(int array[]) &#123;</span><br><span class="line">	//插入排序</span><br><span class="line">	if(array==null||array.length&lt;2) &#123;</span><br><span class="line">		return;</span><br><span class="line">	&#125;</span><br><span class="line">	int size=array.length;</span><br><span class="line">	for(int i=1;i&lt;size;i++) &#123;</span><br><span class="line">		for(int j=i-1;j&gt;=0&amp;&amp;array[j]&gt;array[j+1];j--) &#123;</span><br><span class="line">			</span><br><span class="line">				swap(array,j+1,j);</span><br><span class="line">			</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><strong>二分归并排序</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">public static void mergeSort(int array[]) &#123;</span><br><span class="line">	if(array==null||array.length&lt;2) &#123;</span><br><span class="line">		return;</span><br><span class="line">	&#125;</span><br><span class="line">	mergeSort(array,0,array.length-1);</span><br><span class="line">&#125;</span><br><span class="line">public static void mergeSort(int array[],int l,int r) &#123;</span><br><span class="line">	if(l==r) &#123;</span><br><span class="line">		return;</span><br><span class="line">	&#125;</span><br><span class="line">	int mid=(l+r)/2;</span><br><span class="line">	mergeSort(array,l,mid);</span><br><span class="line">	mergeSort(array,mid+1,r);</span><br><span class="line">	merge(array,l,mid,r);</span><br><span class="line">&#125;</span><br><span class="line">public static void merge(int arr[],int left,int mid,int right) &#123;</span><br><span class="line">	int [] help=new int[right-left+1];</span><br><span class="line">	int p1=left;</span><br><span class="line">	int p2=mid+1;</span><br><span class="line">	int index=0;</span><br><span class="line">	while(p1&lt;=mid&amp;&amp;p2&lt;=right) &#123;</span><br><span class="line">		help[index++]=arr[p1]&lt;arr[p2]?arr[p1++]:arr[p2++];</span><br><span class="line">	&#125;</span><br><span class="line">	while(p1&lt;=mid) &#123;</span><br><span class="line">		help[index++]=arr[p1++];</span><br><span class="line">	&#125;</span><br><span class="line">	while(p2&lt;=right) &#123;</span><br><span class="line">		help[index++]=arr[p2++];</span><br><span class="line">	&#125;</span><br><span class="line">	for(int i=0;i&lt;help.length;i++) &#123;</span><br><span class="line">		arr[left+i]=help[i];</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p> <strong>快速排序</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">public static void quickSort(int [] arr) &#123;</span><br><span class="line">	if (arr == null || arr.length &lt; 2) &#123;</span><br><span class="line">		return;</span><br><span class="line">	&#125;</span><br><span class="line">	quickSort(arr, 0, arr.length - 1);</span><br><span class="line">&#125;</span><br><span class="line">public static void quickSort(int [] arr,int l,int r) &#123;</span><br><span class="line">	if (l &lt; r) &#123;</span><br><span class="line">		///swap(arr, l + (int) (Math.random() * (r - l + 1)), r);</span><br><span class="line">		int[] p = partition(arr, l, r);</span><br><span class="line">		quickSort(arr, l, p[0] - 1);</span><br><span class="line">		quickSort(arr, p[1] + 1, r);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">public static int[] partition(int []arr,int l,int r) &#123;</span><br><span class="line">	int less = l - 1;</span><br><span class="line">	int more = r;</span><br><span class="line">	while (l &lt; more) &#123;</span><br><span class="line">		if (arr[l] &lt; arr[r]) &#123;</span><br><span class="line">			swap(arr, ++less, l++);</span><br><span class="line">		&#125; else if (arr[l] &gt; arr[r]) &#123;</span><br><span class="line">			swap(arr, --more, l);</span><br><span class="line">		&#125; else &#123;</span><br><span class="line">			l++;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	swap(arr, more, r);</span><br><span class="line">	return new int[] &#123; less + 1, more &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><strong>计数排序</strong><br><br>桶排序的实现</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">public static void bucketSort(int [] arr) &#123;</span><br><span class="line">		int len = arr.length;</span><br><span class="line">		int max=arr[0];int min=arr[0];</span><br><span class="line">		for(int i=0;i&lt;len;i++) &#123;</span><br><span class="line">			if(arr[i]&lt;min) &#123;</span><br><span class="line">				min=arr[i];</span><br><span class="line">			&#125;</span><br><span class="line">			if(arr[i]&gt;max) &#123;</span><br><span class="line">				max=arr[i];</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		int bias=-min;</span><br><span class="line">		int [] bucket=new int[max-min+1];</span><br><span class="line">		for(int i=0;i&lt;len;i++) &#123;</span><br><span class="line">			bucket[arr[i]+bias]++;</span><br><span class="line">		&#125;</span><br><span class="line">		int index=0,i=0;</span><br><span class="line">		while(index&lt;len) &#123;</span><br><span class="line">			if(bucket[i]!=0) &#123;</span><br><span class="line">				arr[index]=i-bias;</span><br><span class="line">				bucket[i]--;</span><br><span class="line">				index++;</span><br><span class="line">			&#125;</span><br><span class="line">			else</span><br><span class="line">				i++;</span><br><span class="line">		&#125;</span><br></pre></td></tr></table></figure>
-<p><strong>希尔排序</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">public static void sort(int[] arrays)&#123;</span><br><span class="line">       if(arrays == null || arrays.length &lt;= 1)&#123;</span><br><span class="line">           return;</span><br><span class="line">       &#125;</span><br><span class="line">       //增量</span><br><span class="line">       int incrementNum = arrays.length/2;</span><br><span class="line">       while(incrementNum &gt;=1)&#123;</span><br><span class="line">           for(int i=0;i&lt;arrays.length;i++)&#123;</span><br><span class="line">               //进行插入排序</span><br><span class="line">               for(int j=i;j&lt;arrays.length-incrementNum;j=j+incrementNum)&#123;</span><br><span class="line">                   if(arrays[j]&gt;arrays[j+incrementNum])&#123;</span><br><span class="line">                       int temple = arrays[j];</span><br><span class="line">                       arrays[j] = arrays[j+incrementNum];</span><br><span class="line">                       arrays[j+incrementNum] = temple;</span><br><span class="line">                   &#125;</span><br><span class="line">               &#125;</span><br><span class="line">           &#125;</span><br><span class="line">           //设置新的增量</span><br><span class="line">           incrementNum = incrementNum/2;</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
-
+        <h1 id="八大排序算法"><a href="#八大排序算法" class="headerlink" title="八大排序算法"></a>八大排序算法</h1><table>
+<thead>
+<tr>
+<th>算法名称</th>
+<th>时间复杂度（平均）</th>
+<th>时间复杂度（最好）</th>
+<th>时间复杂度（最坏）</th>
+<th>辅助存储</th>
+<th>稳定性</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>插入排序</td>
+<td>O（n<sup>2</sup>）</td>
+<td>O(n)</td>
+<td>O（n<sup>2</sup>）</td>
+<td>O(1)</td>
+<td>稳定</td>
+</tr>
+<tr>
+<td>冒泡排序</td>
+<td>O（n<sup>2</sup>）</td>
+<td>O(n)</td>
+<td>O（n<sup>2</sup>）</td>
+<td>O(1)</td>
+<td>稳定</td>
+</tr>
+<tr>
+<td>选择排序</td>
+<td>O（n<sup>2</sup>）</td>
+<td>O(n<sup>2</sup>)</td>
+<td>O（n<sup>2</sup>）</td>
+<td>O(1)</td>
+<td>不稳定</td>
+</tr>
+<tr>
+<td>希尔排序</td>
+<td>O（n<sup>1.3</sup>）</td>
+<td>O(n)</td>
+<td>O（n<sup>2</sup>）</td>
+<td>O(1)</td>
+<td>不稳定</td>
+</tr>
+<tr>
+<td>归并排序</td>
+<td>O（nlog n）</td>
+<td>O(nlog n))</td>
+<td>O（n<sup>2</sup>）</td>
+<td>O(1)</td>
+<td>稳定</td>
+</tr>
+<tr>
+<td>快速排序</td>
+<td>O（nlog n）</td>
+<td>O(nlog n)</td>
+<td>O（n<sup>2</sup>）</td>
+<td>O(nlog n)</td>
+<td>不稳定</td>
+</tr>
+<tr>
+<td>堆排序</td>
+<td>O（nlog n）</td>
+<td>O(nlog n)</td>
+<td>O（nlog n）</td>
+<td>O(1)</td>
+<td>不稳定</td>
+</tr>
+<tr>
+<td>基数排序</td>
+<td>O（d(r+n)）</td>
+<td>O(d(n+rd))</td>
+<td>O（r+n）</td>
+<td>O(rd+n)</td>
+<td>稳定</td>
+</tr>
+</tbody>
+</table>
+        
+          <a class="article-more-a" href="/2019/03/28/排序算法集合/#more">more >></a>
+        
       
 
       
